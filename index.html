@@ -8,17 +8,30 @@
             body {
                 background-image: url("github.png");
                 background-size: cover;
-                background-color: black;
+                background-color: black;                
+                background-repeat: no-repeat;
             }
 
             #myCanvas {
                 height: 100%;
                 width: 100%;
+                display: none;
             }
 
             @font-face {
                 font-family: "Orloj";
                 src: url("./Orloj-Ea9eW.otf");
+            }
+
+            #text {
+                font-family: "Orloj";
+                font-size: 109px;
+                color: white;
+                text-align: center;
+                padding-top: 29%;
+                width: 100%;
+                font-variant-ligatures: none;
+
             }
         </style>
     </head>
@@ -28,10 +41,16 @@
             Your browser does not support the canvas element.
         </canvas>
 
+        <div id="text"></div>
+
         <script>
             var canvas = document.getElementById("myCanvas");
             var ctx = canvas.getContext("2d");
             ctx.font = "40px Orloj White";
+
+            var urlParams = new URLSearchParams(window.location.search);
+            let countdownTime = urlParams.get("time");
+            console.log('countdownTime: ' + countdownTime);
 
             var determineFontHeight = function(fontStyle) {
             var body = document.getElementsByTagName("body")[0];
@@ -45,31 +64,41 @@
                 return result;
             };
 
+            // add countdownTime as minutes to current date for the countdown
+            let endTime = new Date().getTime() + (countdownTime * 60 * 1000);
             function showTime() {
                 var canvas = document.getElementById("myCanvas");
                 var ctx = canvas.getContext("2d");
                 var date = new Date();
 
-                let minutes = date.getMinutes();
-                let seconds = date.getSeconds();
-                // todo: add 0 if the seconds are less than 10
-                // get last two chars from seconds
+                let timeLeft = endTime-date;
+                let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                if (timeLeft < 0) {
+                    minutes = 0;
+                    seconds = 0;
+                }
+
+                // get last two chars from seconds with a leading zero if necessary
                 let lastTwo = ("0" + seconds.toString()).substr(seconds.toString().length - 1);
                 let text = minutes + ":" + lastTwo;
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 // ctx.fillStyle="#FF7700"; // dark orange
-                // fill with white
                 ctx.fillStyle = "white";
                 let textSizes = ctx.measureText(text)
                 var fontHeight = determineFontHeight("font: " + ctx.font + ";");
                 console.log(`fontHeight: ` + fontHeight + `canvas.height: ` + canvas.height);
                 let left = (canvas.width - textSizes.width) / 2;
                 let top = (canvas.height - fontHeight) // / 3 * 2;
-                ctx.fillText(text, top, left);
+                //ctx.fillText(text, top, left);
                 console.log(text + " at " + left + " " + top);	
+
+                var textDiv = document.getElementById("text");
+                textDiv.innerHTML = text;
             }
 
-            let timeout = setInterval(showTime, 1000);
+            let interval = setInterval(showTime, 500);            
         </script>
 
     </body>
