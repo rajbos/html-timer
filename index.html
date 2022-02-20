@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <style>
+            body {
+                background-image: url("github.png");
+                background-size: cover;
+                background-color: black;
+            }
+
+            #myCanvas {
+                height: 100%;
+                width: 100%;
+            }
+
+            @font-face {
+                font-family: "Orloj";
+                src: url("./Orloj-Ea9eW.otf");
+            }
+        </style>
+    </head>
+    <body>
+
+        <canvas id="myCanvas">
+            Your browser does not support the canvas element.
+        </canvas>
+
+        <script>
+            var canvas = document.getElementById("myCanvas");
+            var ctx = canvas.getContext("2d");
+            ctx.font = "40px Orloj White";
+
+            var determineFontHeight = function(fontStyle) {
+            var body = document.getElementsByTagName("body")[0];
+            var dummy = document.createElement("div");
+            var dummyText = document.createTextNode("M");
+                dummy.appendChild(dummyText);
+                dummy.setAttribute("style", fontStyle);
+                body.appendChild(dummy);
+                var result = dummy.offsetHeight;
+                body.removeChild(dummy);
+                return result;
+            };
+
+            function showTime() {
+                var canvas = document.getElementById("myCanvas");
+                var ctx = canvas.getContext("2d");
+                var date = new Date();
+
+                let minutes = date.getMinutes();
+                let seconds = date.getSeconds();
+                // todo: add 0 if the seconds are less than 10
+                // get last two chars from seconds
+                let lastTwo = ("0" + seconds.toString()).substr(seconds.toString().length - 1);
+                let text = minutes + ":" + lastTwo;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                // ctx.fillStyle="#FF7700"; // dark orange
+                // fill with white
+                ctx.fillStyle = "white";
+                let textSizes = ctx.measureText(text)
+                var fontHeight = determineFontHeight("font: " + ctx.font + ";");
+                console.log(`fontHeight: ` + fontHeight + `canvas.height: ` + canvas.height);
+                let left = (canvas.width - textSizes.width) / 2;
+                let top = (canvas.height - fontHeight) // / 3 * 2;
+                ctx.fillText(text, top, left);
+                console.log(text + " at " + left + " " + top);	
+            }
+
+            let timeout = setInterval(showTime, 1000);
+        </script>
+
+    </body>
+</html>
