@@ -112,7 +112,7 @@
                     ctx.fillStyle = "white";
                     let textSizes = ctx.measureText(text)
                     var fontHeight = determineFontHeight("font: " + ctx.font + ";");
-                    console.log(`fontHeight: ` + fontHeight + `canvas.height: ` + canvas.height);
+                    console.log(`fontHeight: ` + fontHeight + ` canvas.height: ` + canvas.height);
                     let left = (canvas.width - textSizes.width) / 2;
                     let top = (canvas.height - fontHeight) // / 3 * 2;
                     //ctx.fillText(text, top, left);
