@@ -69,11 +69,15 @@
         </canvas>
 
         <!-- add a menu to control the time duration in minutes -->
-        <div id="menu">            
+        <div id="menu">
             <span>Set timer in minutes:</span>
             <button onclick="countdown(10)">00:10</button>
             <button onclick="countdown(15)">00:15</button>
             <button onclick="countdown(20)">00:20</button>
+            <br />
+            <span>Break type:</span>
+            <button onclick="setBackground(0)">Break</button>
+            <button onclick="setBackground(1)">HOL</button>
         </div>
 
 
@@ -95,6 +99,12 @@
                     clearInterval(interval);
                 }
                 DoCountdown(minutes);
+            }
+
+            function setBackground(index) {
+                var body = document.getElementsByTagName("body")[0];
+                var images = ["github.png", "hands-on.png"];
+                body.style.backgroundImage = "url(" + images[index] + ")";
             }
 
             function DoCountdown(minutes) {
