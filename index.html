@@ -60,6 +60,12 @@
             #menu {
                 color: white;
             }
+
+            .header {
+                min-width: 133px;
+                display: inline-block;
+                margin-bottom: 5px;
+            }
         </style>
     </head>
     <body>
@@ -70,12 +76,12 @@
 
         <!-- add a menu to control the time duration in minutes -->
         <div id="menu">
-            <span>Set timer in minutes:</span>
+            <span class="header">Set timer in minutes:</span>
             <button onclick="countdown(10)">00:10</button>
             <button onclick="countdown(15)">00:15</button>
             <button onclick="countdown(20)">00:20</button>
             <br />
-            <span>Break type:</span>
+            <span class="header">Break type:</span>
             <button onclick="setBackground(0)">Break</button>
             <button onclick="setBackground(1)">HOL</button>
         </div>
