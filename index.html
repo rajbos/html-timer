@@ -66,6 +66,10 @@
                 display: inline-block;
                 margin-bottom: 5px;
             }
+
+            #manual-countdown-value {
+                width: 30px;
+            }
         </style>
     </head>
     <body>
@@ -80,6 +84,9 @@
             <button onclick="countdown(10)">00:10</button>
             <button onclick="countdown(15)">00:15</button>
             <button onclick="countdown(20)">00:20</button>
+            <span> | </span>
+            <input type="number" id="manual-countdown-value" min="1" max="60" value="1" />
+            <button onclick="countdown(document.getElementById('manual-countdown-value').value)">Set custom</button>
             <br />
             <span class="header">Break type:</span>
             <button onclick="setBackground(0)">Break</button>
