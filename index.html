@@ -70,6 +70,15 @@
             #manual-countdown-value {
                 width: 30px;
             }
+
+            #extraText {
+                position: fixed; 
+                left: 20px; 
+                top: 50%; 
+                font-size: 20px; 
+                width: 300px; 
+                height: 200px;
+            }
         </style>
     </head>
     <body>
@@ -91,10 +100,14 @@
             <span class="header">Break type:</span>
             <button onclick="setBackground(0)">Break</button>
             <button onclick="setBackground(1)">HOL</button>
+            <button onclick="toggleTextBox()">Toggle text</button>
         </div>
 
 
-        <div id="text"></div>
+        <div id="text">
+        </div>
+        <textarea id="extraText" style="display:none;">
+        </textarea>
         <!-- <div id="contribute"><a href="https://github.com/rajbos/html-timer">Contribute to Project</a></div> -->
         <div class="contribute">
             <img src="https://pngimg.com/d/github_PNG65.png" class="ctrimg">
@@ -118,6 +131,17 @@
                 var body = document.getElementsByTagName("body")[0];
                 var images = ["github.png", "hands-on.png"];
                 body.style.backgroundImage = "url(" + images[index] + ")";
+            }
+            
+            let textBoxVisible = false;
+            function toggleTextBox() {
+                if (textBoxVisible){
+                    document.getElementById("extraText").style.display = "none";
+                    textBoxVisible = false;
+                } else {
+                    document.getElementById("extraText").style.display = "block";
+                    textBoxVisible = true;
+                }
             }
 
             function DoCountdown(minutes) {
