@@ -100,6 +100,7 @@
             <span class="header">Break type:</span>
             <button onclick="setBackground(0)">Break</button>
             <button onclick="setBackground(1)">HOL</button>
+            <button onclick="setBackground(2)">Discuss</button>
             <button onclick="toggleTextBox()">Toggle text</button>
         </div>
 
@@ -129,7 +130,7 @@
 
             function setBackground(index) {
                 var body = document.getElementsByTagName("body")[0];
-                var images = ["github.png", "hands-on.png"];
+                var images = ["github.png", "hands-on.png", "discuss.png"];
                 body.style.backgroundImage = "url(" + images[index] + ")";
             }
             
